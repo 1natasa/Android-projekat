@@ -50,24 +50,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/relLayout1"
-            android:layout_marginTop="55dp"
-            android:text="Name"
+            android:layout_below="@+id/imageView5"
+            android:layout_marginTop="52dp"
+            android:text="Name:"
             android:textColor="#111"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/etName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView8"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textView12"
@@ -76,10 +75,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/etName"
-            android:layout_marginTop="31dp"
-            android:text="Rates"
+            android:layout_marginTop="17dp"
+            android:text="Rates:"
             android:textColor="#111"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etRates"
@@ -87,11 +87,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/textView12"
+            android:layout_marginTop="17dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_alignRight="@+id/imageView5"
-            android:layout_alignEnd="@+id/imageView5" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textView13"
@@ -100,30 +99,42 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/etRates"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="13dp"
             android:text="Comment"
             android:textColor="#111"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/etRates"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/etRates"
             android:layout_below="@+id/textView13"
             android:layout_marginTop="29dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_alignRight="@+id/etRates"
-            android:layout_alignEnd="@+id/etRates" />
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/logo"
             android:layout_below="@+id/relLayout1"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/logo" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/rounded_button"
+            android:text="Save"
+            android:textColor="#ebebe0"
+            android:layout_below="@+id/etComment"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

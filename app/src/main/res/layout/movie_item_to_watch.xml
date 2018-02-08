@@ -11,59 +11,55 @@
     android:background="@color/gray">
 
     <TextView
-        android:id="@+id/tvMovieTitle"
+        android:id="@+id/tvMovieToWatchTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Title"
         android:textSize="18sp"
+        android:layout_marginTop="27dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/tvMovieRate"
-        android:layout_alignStart="@+id/tvMovieRate" />
+        android:layout_toRightOf="@+id/movie_image"
+        android:layout_toEndOf="@+id/movie_image"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
 
     <TextView
-        android:id="@+id/tvMovieRate"
+        android:id="@+id/tvToMovieWatchRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rate"
         android:textSize="18sp"
-        android:layout_below="@+id/tvMovieTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp" />
+        android:layout_below="@+id/tvMovieToWatchTitle"
+        android:layout_alignLeft="@+id/tvMovieToWatchTitle"
+        android:layout_alignStart="@+id/tvMovieToWatchTitle"
+        android:layout_marginTop="22dp" />
 
     <ImageView
         android:id="@+id/movie_image"
         android:layout_width="150dp"
         android:layout_height="100dp"
-        android:layout_marginTop="14dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/tvToMovieWatchRate" />
 
     <ImageView
         android:id="@+id/imageStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvMovieRate"
-        android:layout_alignLeft="@+id/tvMovieRate"
-        android:layout_alignStart="@+id/tvMovieRate"
-        android:layout_alignTop="@+id/tvMovieRate"
-        android:layout_marginLeft="46dp"
-        android:layout_marginStart="46dp"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_alignTop="@+id/tvToMovieWatchRate"
+        android:layout_toRightOf="@+id/tvToMovieWatchRate"
+        android:layout_toEndOf="@+id/tvToMovieWatchRate" />
 
     <ImageButton
-        android:id="@+id/imageButtonDelete"
+        android:id="@+id/imageButtonWatched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_done_black_24px"
         android:layout_alignBottom="@+id/movie_image"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

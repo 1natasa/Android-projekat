@@ -25,7 +25,8 @@
         <activity android:name=".AddNewWatchedMovieActivity" />
         <activity android:name=".AddNewToWatchMovieActivity" />
         <activity android:name=".PutRatesAndCommentsActivity" />
-        <activity android:name=".InfMovieActivity"></activity>
+        <activity android:name=".InfMovieActivity" />
+        <activity android:name=".ImbdInfoMovieActivity"></activity>
     </application>
 
 </manifest>

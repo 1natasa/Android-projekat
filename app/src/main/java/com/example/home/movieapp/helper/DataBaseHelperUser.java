@@ -26,7 +26,7 @@ public class DataBaseHelperUser extends SQLiteOpenHelper {
     private static final String COLUMN_USERNAME= "username";
     private static final String COLUMN_PASSWORD= "password";
     SQLiteDatabase db;
-    private static final String TABLE_CREATE = "create table users (id integer primary key auto_increment , " +
+    private static final String TABLE_CREATE = "create table users (id integer primary key  , " +
             "email text not null, name text not null, username text not null, password text not null);";
 
 
@@ -70,23 +70,26 @@ public class DataBaseHelperUser extends SQLiteOpenHelper {
         if(cursor.moveToFirst())
         {
             do {
-                usernameStr=cursor.getString(cursor.getColumnIndex("username"));
-                System.out.println(cursor.getString(cursor.getColumnIndex("email")));
-                User user = new User();
-                user.setId(cursor.getString(cursor.getColumnIndex("id")));
-                user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
-                user.setName(cursor.getString(cursor.getColumnIndex("name")));
-                user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-                user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-                Gson gson = new Gson();
-                userObject = gson.toJson(user);
 
-
-                if(usernameStr.equals(username))
+                if(cursor.getString(cursor.getColumnIndex("username")) !=null && cursor.getString(cursor.getColumnIndex("password")) != null)
                 {
-                    passwordStr= cursor.getString(cursor.getColumnIndex("password"));
-                    break;
+                    System.out.println(cursor.getString(cursor.getColumnIndex("email")));
+                    User user = new User();
+                    user.setId(cursor.getString(cursor.getColumnIndex("id")));
+                    user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                    user.setName(cursor.getString(cursor.getColumnIndex("name")));
+                    user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+                    user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+                    Gson gson = new Gson();
+                    userObject = gson.toJson(user);
+                } else
+                {
+
                 }
+
+
+
+
             } while(cursor.moveToNext());
         }
         return userObject;

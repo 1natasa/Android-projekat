@@ -51,7 +51,7 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
 
         super(context , DATABASE_NAME, null, DATABASE_VERSION);
         //
-         //db.execSQL(TABLE_CREATE);
+        //db.execSQL(TABLE_CREATE);
 
     }
 
@@ -115,6 +115,16 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
                         movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
                         movie.setImdbRating(Double.valueOf(cursor.getString(cursor.getColumnIndex("IMDBRATING"))));
                         movie.setPoster(cursor.getString(cursor.getColumnIndex("POSTER")));
+                        movie.setMyRate(cursor.getString(cursor.getColumnIndex("MY_RATE")));
+                        movie.setMyComment(cursor.getString(cursor.getColumnIndex("MY_COMMENT")));
+                        movie.setYear(cursor.getString(cursor.getColumnIndex("YEAR")));
+                        movie.setGenre(cursor.getString(cursor.getColumnIndex("GENRE")));
+                        movie.setActors(cursor.getString(cursor.getColumnIndex("ACTORS")));
+                        movie.setAwards(cursor.getString(cursor.getColumnIndex("AWARDS")));
+                        movie.setDirector(cursor.getString(cursor.getColumnIndex("DIRECTOR")));
+
+
+
                         list.add(movie);
                         //movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
                         /*movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
@@ -135,6 +145,10 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
         return list;
     }
 
+    public void deleteMovie(String imbdTitle)
+    {
+        db.delete(TABLE_NAME, "TITLE=?", new String[] {imbdTitle});
+    }
 
 
 
@@ -143,5 +157,65 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
         String query = "DROP TABLE IF EXISTS "+TABLE_NAME;
         db.execSQL(query);
         this.onCreate(db);
+    }
+
+    public List<Movie> getAllToWatch(Integer userid)
+    {
+        ArrayList<Movie> list = new ArrayList<>();
+        String selectQuery="SELECT * FROM " + TABLE_NAME + " where USERID="+ userid + " and WATCHED=0";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try{
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            try{
+                if(cursor.moveToFirst())
+                {
+                    do{
+                        Movie movie = new Movie();
+                        movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
+                        movie.setImdbRating(Double.valueOf(cursor.getString(cursor.getColumnIndex("IMDBRATING"))));
+                        movie.setPoster(cursor.getString(cursor.getColumnIndex("POSTER")));
+                        movie.setMyRate(cursor.getString(cursor.getColumnIndex("MY_RATE")));
+                        movie.setMyComment(cursor.getString(cursor.getColumnIndex("MY_COMMENT")));
+                        movie.setYear(cursor.getString(cursor.getColumnIndex("YEAR")));
+                        movie.setGenre(cursor.getString(cursor.getColumnIndex("GENRE")));
+                        movie.setActors(cursor.getString(cursor.getColumnIndex("ACTORS")));
+                        movie.setAwards(cursor.getString(cursor.getColumnIndex("AWARDS")));
+                        movie.setDirector(cursor.getString(cursor.getColumnIndex("DIRECTOR")));
+
+
+
+                        list.add(movie);
+                        //movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
+                        /*movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
+                        movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
+                        movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));*/
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                try{cursor.close();}
+                catch (Exception ignore){}
+            }
+        }finally {
+            try {
+                db.close();
+            }
+            catch (Exception ignore){}
+        }
+        return list;
+    }
+
+    public void update(Movie movie) throws JSONException {
+        ContentValues values = new ContentValues();
+        //parcel je tip podatka, on ima metodu koja moze da upisuje mapu u bazu, a njega ne mogu direktno u bazy, vec
+        //preko content velues
+        Parcel parcel = Parcel.obtain();
+        Gson gson = new Gson();
+        //ako ne moze da ga konvertuje da izbaci gresku
+        JSONObject json = new JSONObject(gson.toJson(movie));
+        Map<String,Object> map = MapModel.jsonToMap(json);
+        parcel.writeMap(map);
+        parcel.setDataPosition(0);
+        ContentValues contentValues = values.CREATOR.createFromParcel(parcel);
+        db.update(TABLE_NAME, contentValues,"TITLE=?", new String[]{movie.getTitle()} );
     }
 }

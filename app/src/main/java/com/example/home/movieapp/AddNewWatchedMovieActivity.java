@@ -3,8 +3,11 @@ package com.example.home.movieapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.home.movieapp.adapter.MovieAdapter;
-import com.example.home.movieapp.api.MovieApi;
 import com.example.home.movieapp.helper.DataBaseHelperMovie;
 import com.example.home.movieapp.model.Movie;
 import com.example.home.movieapp.model.User;
@@ -29,8 +31,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewWatchedMovieActivity extends AppCompatActivity {
-    MovieApi movieApi = new MovieApi(this);
+public class AddNewWatchedMovieActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
 
     public List<JSONObject> list;
     SQLiteDatabase db;
@@ -50,6 +52,9 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_film_watched);
         addNewMovie = (EditText) findViewById(R.id.searchMovie);
+
+        BottomNavigationView bottomNavBarBack = (BottomNavigationView) findViewById(R.id.bottomNavBarBack);
+        bottomNavBarBack.setOnNavigationItemSelectedListener(this);
        // final EditText addMyRate = (EditText) findViewById(R.id.)
         //odavde novo
        /* dataBaseHelperMovie = new DataBaseHelperMovie(this);
@@ -164,5 +169,14 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        int id=item.getItemId();
+        if(id==R.id.back)
+        {
+            startActivity(new Intent(this, WatchedActivity.class));
+        }
+        return false;
+    }
 }

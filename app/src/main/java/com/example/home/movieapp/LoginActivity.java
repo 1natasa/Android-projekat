@@ -7,18 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Patterns;
 
+import com.example.home.movieapp.helper.DataBaseHelperMovie;
 import com.example.home.movieapp.helper.DataBaseHelperUser;
 import com.example.home.movieapp.model.User;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity implements  View.OnClickListener{
 
+
     DataBaseHelperUser helper = new DataBaseHelperUser(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
       /*  final EditText etUsername = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword =(EditText) findViewById(R.id.etPassword);
@@ -45,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
             //ako je kliknuto dugme tvRegisterHere otvoricemo novu Activity classu da korisnik moze da se registruje
             case R.id.tvRegisterHere:
+
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
 
@@ -60,18 +66,29 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
                 //SharedPreferences sluzi samo za citanje, a pomocu editora cu upisati usera u local storge
                 SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+                System.out.println(userObject);
                 editor.putString("user",userObject);
                 editor.apply();
                 Gson gson = new Gson();
                 User user = gson.fromJson(userObject,User.class);
 
+                if(userObject==null)
+                {
+                    etUsername.setError("Username mora da se popuni");
+                    etUsername.requestFocus();
+                    return;
 
+                } else if (userObject==null)
+                {
+                    etPassword.setError("Password mora da se popuni");
+                    etPassword.requestFocus();
+                }
                 if (passStr.equals(user.getPassword()))
                 {
                     startActivity(new Intent(this, UserAreaActivity.class));
                 } else
                 {
-                    Toast.makeText(LoginActivity.this, "Password ne odgovara unetom usernameu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Password and username dont match", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

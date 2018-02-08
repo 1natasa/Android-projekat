@@ -52,37 +52,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             if(emailStr.isEmpty())
             {
-                etEmail.setError("Email mora da se popuni");
+                etEmail.setError("Email must be filled");
                 etEmail.requestFocus();
                return;
             } else if (!Patterns.EMAIL_ADDRESS.matcher(emailStr).matches())
             {
-                etEmail.setError("Email nije dobar");
+                etEmail.setError("Email is wrong");
                 etEmail.requestFocus();
                 return;
             } else if (nameStr.isEmpty())
             {
-                etName.setError("Ime mora da se popuni");
+                etName.setError("Name must be filled");
                 etName.requestFocus();
                 return;
             } else if (usernameStr.isEmpty())
             {
-                etUsername.setError("Username mora da se popuni");
+                etUsername.setError("Username must be filled");
                 etUsername.requestFocus();
                 return;
             }   else if (passwordStr.isEmpty())
             {
-                etPassword.setError("Password mora da se popuni");
+                etPassword.setError("Password must be filled");
                 etPassword.requestFocus();
                 return;
             } else if (confirmPasswordStr.isEmpty())
             {
-                etConfirmPassword.setError("Confirm password mora da se popuni");
+                etConfirmPassword.setError("Confirm password must be filled");
                 etConfirmPassword.requestFocus();
                 return;
             } else if(!passwordStr.equals(confirmPasswordStr))
             {
-                Toast.makeText(RegisterActivity.this, "Paswordi se ne poklapaju", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }else
 
@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 user.setUsername(usernameStr);
                 user.setPassword(passwordStr);
                 helper.insertUser(user);
-                Toast.makeText(RegisterActivity.this, "Korisnik je registrovan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "User is registered", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
 
             }
