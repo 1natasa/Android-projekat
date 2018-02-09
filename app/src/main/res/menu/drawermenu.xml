@@ -4,5 +4,9 @@
         android:icon="@drawable/ic_play_arrow_black_24px"/>
     <item android:id="@+id/watched" android:title="Watched"
         android:icon="@drawable/ic_done_black_24px"/>
+    <item android:id="@+id/logout" android:title="Logout"
+        />
+
+
 
 </menu>

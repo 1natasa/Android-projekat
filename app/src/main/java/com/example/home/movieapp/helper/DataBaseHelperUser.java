@@ -29,6 +29,10 @@ public class DataBaseHelperUser extends SQLiteOpenHelper {
     private static final String TABLE_CREATE = "create table users (id integer primary key  , " +
             "email text not null, name text not null, username text not null, password text not null);";
 
+    private static final String TABLE_CREATE_MOVIE = "create table movie (id integer primary key , " +
+            "TITLE text not null, MY_RATE text not null, MY_COMMENT text not null, YEAR text not null," +
+            "ACTORS text not null, AWARDS text not null, DIRECTOR text not null, GENRE text not null," +
+            "IMDBRATING text not null, POSTER text not null, USERID integer not null, WATCHED boolean );";
 
     public DataBaseHelperUser(Context context)
     {
@@ -37,7 +41,7 @@ public class DataBaseHelperUser extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(TABLE_CREATE_MOVIE);
         db.execSQL(TABLE_CREATE);
         this.db=db;
     }
@@ -92,6 +96,7 @@ public class DataBaseHelperUser extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
+        db.close();
         return userObject;
     }
     @Override

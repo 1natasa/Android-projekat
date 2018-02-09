@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -55,19 +56,7 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
 
         BottomNavigationView bottomNavBarBack = (BottomNavigationView) findViewById(R.id.bottomNavBarBack);
         bottomNavBarBack.setOnNavigationItemSelectedListener(this);
-       // final EditText addMyRate = (EditText) findViewById(R.id.)
-        //odavde novo
-       /* dataBaseHelperMovie = new DataBaseHelperMovie(this);
-        db = new DataBaseHelperMovie(this).getWritableDatabase();
-        movieList = new ArrayList<>();
-        ListView listView = (ListView)findViewById(R.id.listview_movie);
-        movieAdapter = new MovieAdapter(this, movieList);
-        listView.setAdapter(movieAdapter);
-        list = new ArrayList<>();*/
-        //dovde
-
-            //addNewMovie.getHint().toString()
-        //iz ovog aktivija zapravo zovem api
+        //iz ovog aktivija zovemo api
 
         Button btnSearchWatchedMovie = (Button) findViewById(R.id.btnSearchMovie);
 
@@ -79,13 +68,16 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
                 final RequestQueue requestQueue = Volley.newRequestQueue(AddNewWatchedMovieActivity.this);
                 url="http://www.omdbapi.com/?t="+addNewMovie.getText().toString().replace(" ","+")+"&apikey=32846af3";
                 stringRequest= new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                    //ako dodbijem odg dobicu string ako ne, ulazi u error i vraca neku gresku..
+                    //ako dodbijem odgovor dobicu string ako ne, ulazi u error i vraca gresku
                     @Override
                     public void onResponse(String response) {
                         System.out.println("prosao");
-                        //da pravim json u koji konvertujem string koji mi vrati api, on meni sve vrati u stringu
+                        //api sve vrati u stringu
                         //tako da moram da ga konvertujem u json objekat kako bih mogla da radim sa tim
+                        //konvertujem ga preko gson objekta
                         try{
+                            //pomocu sharedPreferences uzimamo usera iz local storage i koristimo njegov id
+                            //kako bismo povezali podatke o filmu sa konkretnim userom
                             SharedPreferences sharedPreferences= getSharedPreferences("shared preferences", MODE_PRIVATE);
                             String userObject=sharedPreferences.getString("user",null);
                             Gson gson = new Gson();
@@ -110,15 +102,9 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
                             Intent intent = new Intent(AddNewWatchedMovieActivity.this, PutRatesAndCommentsActivity.class);
                             Gson object = new Gson();
                             requestQueue.stop();
-                            //ima metodu kojom ceo objekay mogu da pretvorim u json
+                            //gson ima metodu kojom ceo objekat mogu da pretvorim u json
                             String movieString = object.toJson(movie);
                             intent.putExtra("movie", movieString);
-                            // NOVOOOO
-                            //movieList.add(movie);
-                          /*  movieList.add(new Movie(movie.getId(),movie.getTitle(), movie.getImdbRating() ));
-                            movieAdapter.notifyDataSetChanged();
-                            //DOVDE
-                            */
                             startActivity(intent);
 
 
@@ -127,6 +113,7 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
                         } catch (JSONException e) {
                             System.out.println("nije prosao");
                             e.printStackTrace();
+                            Toast.makeText(AddNewWatchedMovieActivity.this, "Movie not found", Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -134,6 +121,7 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(AddNewWatchedMovieActivity.this, "Movie not found", Toast.LENGTH_SHORT).show();
                         requestQueue.stop();
 
                     }
@@ -146,21 +134,7 @@ public class AddNewWatchedMovieActivity extends AppCompatActivity implements Bot
                     public void onRequestFinished(Request<Movie> request)
                     {
                         System.out.println("zavrsio");
-                        //odavde novo
-                        /*if (movieList.size() != 0)
-                        {
-                            for (Movie movie : movieList)
-                            {
-                                try {
-                                    //List<Movie> list1 = dataBaseHelperMovie.insertMovie(movie);
-                                    Gson gson = new Gson();
-                                    //String json = gson.toJson(list1);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }*/
-                        //dovde
+
                     }
                 });
             }

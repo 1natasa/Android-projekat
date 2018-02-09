@@ -17,8 +17,8 @@ import java.util.Objects;
 
 public class MapModel {
 
-    //sluzi da mi konvertuje json u mapu, kad upisujem u bazy ne moze da upisuje json, a mapu moze, i zato
-    //upisujem lakse u bazu, ne moram sve odjednom preko put da upisujem..
+    //sluzi da konvertuje json u mapu, kad upisujemo u bazu ne moze da upisuje json, a mapu moze
+    //upisuje se lakse u bazu, ne moramo sve  preko put da upisujemo..
 
     public static Map<String, Object> jsonToMap (JSONObject json) throws JSONException
     {

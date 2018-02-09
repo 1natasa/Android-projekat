@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class DataBaseHelperMovie extends SQLiteOpenHelper {
 
-    SQLiteDatabase db = this.getWritableDatabase();
+    SQLiteDatabase db;
     private static final int DATABASE_VERSION=1;
     private static final String DATABASE_NAME = "users.db";
     private static final String TABLE_NAME= "movie";
@@ -41,16 +41,12 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
     private static final String COLUMN_IMDB_POSTER="imdb_poster";
 
 
-    private static final String TABLE_CREATE = "create table movie (id integer primary key , " +
-            "TITLE text not null, MY_RATE text not null, MY_COMMENT text not null, YEAR text not null," +
-            "ACTORS text not null, AWARDS text not null, DIRECTOR text not null, GENRE text not null," +
-            "IMDBRATING text not null, POSTER text not null, USERID integer not null, WATCHED boolean );";
+
     //private static  final String TABLE_CREATE ="create table movie(id_movie integer primary key not null )";
 
     public DataBaseHelperMovie(Context context) {
 
         super(context , DATABASE_NAME, null, DATABASE_VERSION);
-        //
         //db.execSQL(TABLE_CREATE);
 
     }
@@ -58,15 +54,15 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
 
         this.db=db;
 
     }
 
     public void insertMovie(Movie m) throws JSONException {
+        db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //parcel je tip podatka, on ima metodu koja moze da upisuje mapu u bazu, a njega ne mogu direktno u bazy, vec
+        //parcel je tip podatka, on ima metodu koja moze da upisuje mapu u bazu, a njega ne moze direktno u bazu, vec
         //preko content velues
         Parcel parcel = Parcel.obtain();
         Gson gson = new Gson();
@@ -77,14 +73,6 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
         parcel.setDataPosition(0);
         ContentValues contentValues = values.CREATOR.createFromParcel(parcel);
 
-
-        //String query="select * from movie";
-        //Cursor cursor = db.rawQuery(query, null);
-        //int count = cursor.getCount();
-        //values.put(COLUMN_ID, count);
-
-        //private static final String COLUMN_RATE = "my_rate";
-        //private static final String COLUMN_COMMENT= "my_comment";
 
        /* values.put(COLUMN_TITLE, m.getTitle());
         values.put(COLUMN_IMDB_YEAR,m.getYear() );
@@ -147,6 +135,7 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
 
     public void deleteMovie(String imbdTitle)
     {
+        db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "TITLE=?", new String[] {imbdTitle});
     }
 
@@ -185,10 +174,7 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
 
 
                         list.add(movie);
-                        //movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
-                        /*movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
-                        movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
-                        movie.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));*/
+
                     } while (cursor.moveToNext());
                 }
             } finally {
@@ -205,6 +191,7 @@ public class DataBaseHelperMovie extends SQLiteOpenHelper {
     }
 
     public void update(Movie movie) throws JSONException {
+        db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         //parcel je tip podatka, on ima metodu koja moze da upisuje mapu u bazu, a njega ne mogu direktno u bazy, vec
         //preko content velues

@@ -55,7 +55,7 @@ public class InfMovieActivity extends AppCompatActivity implements BottomNavigat
                     movieObject.setMyRate(tvRates.getText().toString());
                     movieObject.setMyComment(tvComment.getText().toString());
                     System.out.println(gson.toJson(movieObject));
-                    Toast.makeText(InfMovieActivity.this, "Sacuvane izmene", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InfMovieActivity.this, "Successfully updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(InfMovieActivity.this, WatchedActivity.class));
                     db.update(movieObject);
                 } catch (JSONException e) {
@@ -65,7 +65,7 @@ public class InfMovieActivity extends AppCompatActivity implements BottomNavigat
             }
         });
 
-        //Button imdbRates = (Button) findViewById(R.id.bottomNavBarImbdRates);
+
 
 
         System.out.println(movie);

@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             if(emailStr.isEmpty())
             {
-                etEmail.setError("Email must be filled");
+                etEmail.setError("Enter your email");
                 etEmail.requestFocus();
                return;
             } else if (!Patterns.EMAIL_ADDRESS.matcher(emailStr).matches())
@@ -62,22 +62,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             } else if (nameStr.isEmpty())
             {
-                etName.setError("Name must be filled");
+                etName.setError("Enter your name");
                 etName.requestFocus();
                 return;
             } else if (usernameStr.isEmpty())
             {
-                etUsername.setError("Username must be filled");
+                etUsername.setError("Enter your username");
                 etUsername.requestFocus();
                 return;
             }   else if (passwordStr.isEmpty())
             {
-                etPassword.setError("Password must be filled");
+                etPassword.setError("Enter your password");
                 etPassword.requestFocus();
                 return;
             } else if (confirmPasswordStr.isEmpty())
             {
-                etConfirmPassword.setError("Confirm password must be filled");
+                etConfirmPassword.setError("Confirm password");
                 etConfirmPassword.requestFocus();
                 return;
             } else if(!passwordStr.equals(confirmPasswordStr))

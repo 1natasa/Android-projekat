@@ -66,6 +66,12 @@ public class UserAreaActivity extends AppCompatActivity  implements NavigationVi
         {
             startActivity(new Intent(this, WatchedActivity.class));
         }
+
+        if(id==R.id.logout)
+        {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
         return false;
     }
 

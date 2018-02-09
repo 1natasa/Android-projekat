@@ -57,8 +57,8 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
                     @Override
                     public void onResponse(String response) {
                         System.out.println("prosao");
-                        //da pravim json u koji konvertujem string koji mi vrati api, on meni sve vrati u stringu
-                        //tako da moram da ga konvertujem u json objekat kako bih mogla da radim sa tim
+                        //pravimo json u koji konvertujemo string koji nam vraca api, posto sve vrati u stringu
+                        // moramo da ga konvertujemo u json objekat kako bi mogli da radimo sa tim
                         try{
                             SharedPreferences sharedPreferences= getSharedPreferences("shared preferences", MODE_PRIVATE);
                             String userObject=sharedPreferences.getString("user",null);
@@ -89,6 +89,7 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
                                 startActivity(new Intent(AddNewToWatchMovieActivity.this, ToWatchActivity.class));
 
                             } catch (JSONException e) {
+
                                 e.printStackTrace();
                             }
 
@@ -96,10 +97,8 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
                            // Gson object = new Gson();
                             requestQueue.stop();
 
-                            //ima metodu kojom ceo objekay mogu da pretvorim u json
                             //String movieString = object.toJson(movie);
                             //intent.putExtra("movie", movieString);
-                            // NOVOOOO
                             //movieList.add(movie);
                           /*  movieList.add(new Movie(movie.getId(),movie.getTitle(), movie.getImdbRating() ));
                             movieAdapter.notifyDataSetChanged();
@@ -112,6 +111,7 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
 
                         } catch (JSONException e) {
                             System.out.println("nije prosao");
+                            Toast.makeText(AddNewToWatchMovieActivity.this, "Movie not found", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
 
                         }
@@ -124,7 +124,7 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
 
                     }
                 });
-                //ovo dodam u tu listu aktivnosti
+                //ovo dodamo u tu listu aktivnosti
                 requestQueue.add(stringRequest);
                 //to je kad izvrsi aktivnosti
                 requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Movie>() {
@@ -132,7 +132,6 @@ public class AddNewToWatchMovieActivity extends AppCompatActivity implements Bot
                     public void onRequestFinished(Request<Movie> request)
                     {
                         System.out.println("zavrsio");
-                        //odavde novo
                         /*if (movieList.size() != 0)
                         {
                             for (Movie movie : movieList)

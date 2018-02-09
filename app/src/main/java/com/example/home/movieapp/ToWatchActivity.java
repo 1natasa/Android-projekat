@@ -43,7 +43,7 @@ public class ToWatchActivity extends AppCompatActivity implements BottomNavigati
         movieList=dbM.getAllToWatch(Integer.valueOf(user.getId()));
         System.out.println(movieList);
         listView.setFocusable(true);
-        //nakon sto napravim objeka i stavim ga u listu, putem adaptera cu da popunim listu koja ce da se prikaze
+        //nakon sto napravimo objekat i stavimo ga u listu, putem adaptera cemo da popunimo listu koja ce da se prikaze
         adapter=new ToWatchMovieAdapter(this,movieList);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

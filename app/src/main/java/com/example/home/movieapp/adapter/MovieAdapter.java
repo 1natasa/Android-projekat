@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MovieAdapter extends BaseAdapter {
 
-    //mCocetx je contex od ovoga, gde god pozovem adapter krzo konstruktor mu dam kontekst
+    //mCocetx je contex od ovoga, gde god pozovem adapter kroz konstruktor mu dam kontekst
     private Context mContext;
     private List<Movie> mMovie;
     DataBaseHelperMovie db;
